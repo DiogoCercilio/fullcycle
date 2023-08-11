@@ -1,0 +1,41 @@
+version: '3.1'
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    user: postgres
+    environment:
+      PGUSER: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: inventory
+       
+  api:
+    container_name: apis
+    ports:
+      - 3000:3000
+    image: api
+    build:
+      context: .
+      target: APISBUILD
+    environment:
+      DATABASE_URL: postgresql://postgres:pass@docker.for.mac.localhost:5432/inventory?schema=public&connect_timeout=60
+      NODE_ENV: development
+      PORT: 3000
+    links:
+      - db
+    depends_on:
+      - db
+    restart: always
+
+  front:
+    container_name: react-app
+    ports:
+      - 5173:5173
+    image: react-app
+    build:
+      context: .
+      target: PRODUCTION_IMAGE     
