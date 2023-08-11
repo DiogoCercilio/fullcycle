@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #1C1C1C;
+}
+
+h1 {
+    font-size: 28px;
+    /* font-weight: 100; */
+    color: #ffcd00;
+}
+
+li {
+}
+
+
+a {
+    font-weight: 100;
+    color: #fff;
+}
+   
+a:hover {
+    color: #ffcd00;
+    text-decoration: underline;
+}
