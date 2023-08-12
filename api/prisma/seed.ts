@@ -4,6 +4,7 @@ import { UserCreateDto } from 'src/user/user.dto';
 import { faker } from '@faker-js/faker';
 import { CategoryCreateDto } from 'src/category/category.dto';
 import { InventoryCreationDto } from 'src/inventory/inventory.dto';
+import * as argon2 from 'argon2';
 
 const response: any = {};
 
@@ -12,7 +13,7 @@ const response: any = {};
 
   const user: UserCreateDto = {
     email: 'admin@user.com',
-    password: '123456',
+    password: await argon2.hash('123456'),
   };
 
   // Seed User

@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { UserResponseDto } from 'src/user/user.dto';
 import { AuthRequestDto } from './auth.dto';
 import { JwtService } from '@nestjs/jwt';
-// import * as argon2 from 'argon2';
+import * as argon2 from 'argon2';
 import 'dotenv/config';
 
 @Injectable()
@@ -20,8 +20,8 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException();
     }
-    const userpass = user.password; //await argon2.hash(user.password);
-    const matches = userpass === password; //await argon2.verify(userpass, password);
+
+    const matches = await argon2.verify(user.password, password);
 
     if (!matches) {
       throw new UnauthorizedException();
